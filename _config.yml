@@ -1,0 +1,40 @@
+# Site settings
+title: Cyberjutsu
+# email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Welcome to the Cyberjutsu blog – a collection of tech write-ups, guides, and reflections shared with the community.
+baseurl: "/cyberjutsu" # the subpath of your site, e.g. /blog
+url: "https://gnar1zard.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list to override the default setting.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/s
+  - vendor/gems/
+  - vendor/ruby/
+
+# Outputting
+permalink: /:year/:month/:day/:title/
+paginate: 5 # amount of posts to show
+paginate_path: "/page:num/"
+
+# Plugins
+gems:
+  - jekyll-paginate
+
+# Optional, if you want to use GitHub Pages' default plugins:
+#plugins:
+#  - jekyll-coffeescript
+#  - jekyll-gist
+#  - jekyll-paginate
+#  - jekyll-seo-tag
