@@ -2,7 +2,7 @@
 title: Cyberjutsu
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Welcome to the Cyberjutsu blog – a collection of tech write-ups, guides, and reflections shared with the community.
+  Welcome to Cyberjutsu – a collection of tech write-ups, guides, and reflections shared with the community.
 baseurl: "/cyberjutsu" # the subpath of your site, e.g. /blog
 url: "https://gnar1zard.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
