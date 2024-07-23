@@ -1,4 +1,4 @@
-Welcome to the Cyberjutsu blog – a collection of tech write-ups, guides, and reflections shared with the community. This repository hosts the markdown files that are automatically turned into blog posts via GitHub Pages.
+Welcome to Cyberjutsu – a collection of tech write-ups, guides, and reflections shared with the community. This repository hosts the markdown files that are automatically turned into blog posts via GitHub Pages.
 
 ## About
 
@@ -14,4 +14,4 @@ Your feedback is valuable! If you have any comments or would like to discuss a p
 
 ---
 
-> Thank you for visiting the Cyberjutsu blog. Enjoy reading and learning!
+> Thank you for visiting Cyberjutsu. Enjoy reading and learning!
