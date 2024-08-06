@@ -437,6 +437,28 @@ nmap -sC <target>
    - Based on the open ports and the services detected running on those ports, Nmap selects and runs relevant default scripts to gather more information.
    - These default scripts are categorized under safe and useful scripts that provide further insights without being intrusive.
 
+### Practical Example
+
+Let's perform a scan using the `vuln` script to check for vulnerabilities on specific ports of a target host. The following command scans the target `10.10.13.147` on ports `80, 135, 139, 445, 3389`, saves the output to `scan_vuln.txt`, and provides verbose output while treating the host as online (`-Pn`).
+
+```bash
+nmap -oN scan_vuln.txt -v -Pn --script vuln -p 80,135,139,445,3389 10.10.13.147
+```
+
+1. **Explanation**:
+   - `-oN scan_vuln.txt`: Saves the output to a file named `scan_vuln.txt`.
+   - `-v`: Provides verbose output.
+   - `-Pn`: Treats the target as online, skipping the host discovery phase.
+   - `--script vuln`: Uses the `vuln` script to check for vulnerabilities.
+   - `-p 80,135,139,445,3389`: Specifies the ports to scan.
+   - `10.10.13.147`: The target IP address.
+
+2. **Output**:
+   - The scan will provide details about open ports and any vulnerabilities found on the specified ports.
+   - The results will be saved in `scan_vuln.txt` for further analysis.
+
+By following this example, you can effectively use Nmap scripts to perform targeted scans and gather detailed information about potential vulnerabilities on the network.
+
 ### Benefits of Running `-sC`
 
 - **Comprehensive Information**: By running default scripts, Nmap can provide a more comprehensive picture of the target’s network configuration and potential vulnerabilities.
