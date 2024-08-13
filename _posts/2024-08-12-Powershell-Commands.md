@@ -518,11 +518,48 @@ Understanding PowerShell commands is facilitated by the `Get-Help` cmdlet, which
   Get-Help Get-Process -Examples
   ```
 
+This will provide you with one or more practical examples of how the `Get-Process` cmdlet can be used, showing you the command and a description of what it does.
+
+   **Example Output**:
+
+   Running `Get-Help Get-Process -Examples` might produce output like this:
+
+   ```
+   NAME
+       Get-Process
+
+   SYNOPSIS
+       Gets the processes that are running on the local computer or a remote computer.
+
+   ...
+   
+   EXAMPLES
+
+       Example 1: Get a list of all processes on the local computer
+
+       PS C:\> Get-Process
+
+       This command gets a list of all processes running on the local computer.
+
+       Example 2: Get processes that have a specific name
+
+       PS C:\> Get-Process -Name "notepad"
+
+       This command gets all instances of processes that have a process name that begins with "notepad".
+
+   ...
+   ```
+  
 - **Updating Help Files**:
 
-  ```powershell
-  Update-Help
-  ```
+  The help files in PowerShell can become outdated, especially after new features or cmdlets are added. You can update the help files to ensure you have the latest information by running:
+
+   ```powershell
+   Update-Help
+   ```
+
+   This command downloads the most current help files from the internet and installs them on your system. After running this, the information provided by `Get-Help` will be up to date.
+
 
 ## PowerShell Package Management
 
@@ -581,7 +618,6 @@ The `Where-Object` cmdlet filters objects based on specified property values.
 ## Glossary
 
 Below is a comprehensive list of PowerShell commands and their descriptions.
-
 
 | Term              | Description                                                                 |
 |-------------------|-----------------------------------------------------------------------------|
