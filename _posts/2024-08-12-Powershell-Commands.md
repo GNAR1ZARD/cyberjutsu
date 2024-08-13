@@ -76,53 +76,34 @@ Here, `Get-Process` is the cmdlet, `-Name` is a parameter, and `"notepad"` is th
 PowerShell cmdlets use standardized verbs to ensure consistency across commands. Here are some common verbs used in PowerShell:
 
 - **`Get`**: Retrieves data or an object.
-  - Example: `Get-Item`
 - **`Set`**: Changes the state or data of an object.
-  - Example: `Set-Item`
 - **`Remove`**: Deletes an object or data.
-  - Example: `Remove-Item`
 - **`New`**: Creates a new object.
-  - Example: `New-Item`
 - **`Copy`**: Copies an object from one location to another.
-  - Example: `Copy-Item`
 - **`Move`**: Moves an object from one location to another.
-  - Example: `Move-Item`
 - **`Start`**: Begins an operation or process.
-  - Example: `Start-Process`
 - **`Stop`**: Ends an operation or process.
-  - Example: `Stop-Process`
 - **`Restart`**: Stops and then starts an operation or process.
-  - Example: `Restart-Service`
 
 ### Common Nouns
 
 Nouns in cmdlets specify the target object or data type that the cmdlet operates on. Here are some common nouns used in PowerShell:
 
 - **`Item`**: Represents a generic object (e.g., file, registry key).
-  - Example: `Get-Item`
 - **`Process`**: Represents a system process.
-  - Example: `Get-Process`, `Stop-Process`
 - **`Service`**: Represents a Windows service.
-  - Example: `Get-Service`, `Restart-Service`
 - **`ChildItem`**: Represents files and directories within a directory.
-  - Example: `Get-ChildItem`, `Remove-ChildItem`
 - **`Command`**: Represents a command or cmdlet.
-  - Example: `Get-Command`, `Invoke-Command`
 
 ### Common Parameters
 
 Cmdlets often support parameters that control their behavior. Here are some of the most frequently used parameters:
 
 - **`-Name`**: Specifies the name of an item.
-  - Example: `Get-Process -Name "notepad"`
 - **`-Path`**: Specifies the location of an item.
-  - Example: `Set-Location -Path "C:\Users"`
 - **`-Force`**: Overrides restrictions or prompts, forcing the operation to proceed.
-  - Example: `Remove-Item "C:\temp\file.txt" -Force`
 - **`-Recurse`**: Performs the operation on all items within the specified location, including subdirectories.
-  - Example: `Get-ChildItem -Recurse`
 - **`-Filter`**: Specifies a filter to limit the items returned by a cmdlet.
-  - Example: `Get-ChildItem -Filter "*.txt"`
 
 ### Common Options
 
@@ -599,28 +580,56 @@ The `Where-Object` cmdlet filters objects based on specified property values.
 
 ## Glossary
 
-Below is a comprehensive list of PowerShell commands and their descriptions, organized alphabetically.
+Below is a comprehensive list of PowerShell commands and their descriptions.
 
-| Command                          | Description                                                              |
-|----------------------------------|--------------------------------------------------------------------------|
-| `Compress-Archive`               | Creates a compressed archive file                                        |
-| `Expand-Archive`                 | Extracts the contents of a compressed archive file                       |
-| `Get-ChildItem`                  | Lists all files and directories in the current directory                 |
-| `Get-Content`                    | Retrieves the content of a file                                          |
-| `Get-Help`                       | Displays the help information for a given cmdlet                         |
-| `Get-Location`                   | Displays the current directory path                                      |
-| `Get-Process`                    | Displays a list of currently running processes                           |
-| `Get-Service`                    | Lists all services on the system, displaying their status                |
-| `icacls`                         | Modifies file and directory permissions                                  |
-| `Invoke-WebRequest`              | Downloads files from the internet                                        |
-| `Move-Item`                      | Moves or renames files and directories                                   |
-| `New-Item`                       | Creates a new file or directory                                          |
-| `Out-File`                       | Redirects output to a file                                               |
-| `Select-String`                  | Searches for text patterns within files                                  |
-| `Set-Location`                   | Changes the current directory to a specified path                        |
-| `Set-Content`                    | Writes or replaces the content of a file                                 |
-| `Start-Process`                  | Starts a new process                                                     |
-| `Stop-Process`                   | Stops a process by name or process ID                                    |
-| `Test-Connection`                | Tests the network connection to a remote server                          |
-| `Update-Help`                    | Updates the help files for cmdlets                                       |
-| `Where-Object`                   | Filters the output of other commands based on conditions                 |
+
+| Term              | Description                                                                 |
+|-------------------|-----------------------------------------------------------------------------|
+| **Common Verbs**  |                                                                             |
+| `Get`             | Retrieves data or an object. Example: `Get-Item`                            |
+| `Set`             | Changes the state or data of an object. Example: `Set-Item`                 |
+| `Remove`          | Deletes an object or data. Example: `Remove-Item`                           |
+| `New`             | Creates a new object. Example: `New-Item`                                   |
+| `Copy`            | Copies an object from one location to another. Example: `Copy-Item`         |
+| `Move`            | Moves an object from one location to another. Example: `Move-Item`          |
+| `Start`           | Begins an operation or process. Example: `Start-Process`                    |
+| `Stop`            | Ends an operation or process. Example: `Stop-Process`                       |
+| `Restart`         | Stops and then starts an operation or process. Example: `Restart-Service`   |
+| **Common Nouns**  |                                                                             |
+| `Item`            | Represents a generic object, such as a file or registry key. Example: `Get-Item` |
+| `Process`         | Represents a system process. Example: `Get-Process`, `Stop-Process`         |
+| `Service`         | Represents a Windows service. Example: `Get-Service`, `Restart-Service`     |
+| `ChildItem`       | Represents files and directories within a directory. Example: `Get-ChildItem`, `Remove-ChildItem` |
+| `Command`         | Represents a command or cmdlet. Example: `Get-Command`, `Invoke-Command`    |
+| **Common Parameters** |                                                                         |
+| `-Name`           | Specifies the name of an item. Example: `Get-Process -Name "notepad"`       |
+| `-Path`           | Specifies the location of an item. Example: `Set-Location -Path "C:\Users"` |
+| `-Force`          | Overrides restrictions or prompts, forcing the operation to proceed. Example: `Remove-Item "C:\temp\file.txt" -Force` |
+| `-Recurse`        | Performs the operation on all items within the specified location, including subdirectories. Example: `Get-ChildItem -Recurse` |
+| `-Filter`         | Specifies a filter to limit the items returned by a cmdlet. Example: `Get-ChildItem -Filter "*.txt"` |
+| **Common Options**|                                                                             |
+| `-WhatIf`         | Simulates the command without making any changes. Useful for testing commands. Example: `Remove-Item "C:\temp\file.txt" -WhatIf` |
+| `-Confirm`        | Prompts the user for confirmation before executing the command. Example: `Remove-Item "C:\temp\file.txt" -Confirm` |
+| `-Verbose`        | Provides detailed information about the operation being performed. Example: `Copy-Item "C:\temp\file.txt" "D:\backup\" -Verbose` |
+| `-ErrorAction`    | Controls how PowerShell responds to errors. Common values include `Continue`, `Stop`, `SilentlyContinue`, and `Inquire`. Example: `Get-Item "C:\nonexistentfile.txt" -ErrorAction SilentlyContinue` |
+| `-OutVariable`    | Stores the output of a cmdlet in a variable for later use. Example: `Get-Process -Name "notepad" -OutVariable myProcesses` |
+| **Other Commands**|                                                                             |
+| `Compress-Archive`| Creates a compressed archive file                                           |
+| `Expand-Archive`  | Extracts the contents of a compressed archive file                          |
+| `Get-ChildItem`   | Lists all files and directories in the current directory                    |
+| `Get-Content`     | Retrieves the content of a file                                             |
+| `Get-Help`        | Displays the help information for a given cmdlet                            |
+| `Get-Location`    | Displays the current directory path                                         |
+| `icacls`          | Modifies file and directory permissions                                     |
+| `Invoke-WebRequest`| Downloads files from the internet                                          |
+| `Move-Item`       | Moves or renames files and directories                                      |
+| `New-Item`        | Creates a new file or directory                                             |
+| `Out-File`        | Redirects output to a file                                                  |
+| `Select-String`   | Searches for text patterns within files                                     |
+| `Set-Location`    | Changes the current directory to a specified path                           |
+| `Set-Content`     | Writes or replaces the content of a file                                    |
+| `Start-Process`   | Starts a new process                                                        |
+| `Stop-Process`    | Stops a process by name or process ID                                       |
+| `Test-Connection` | Tests the network connection to a remote server                             |
+| `Update-Help`     | Updates the help files for cmdlets                                          |
+| `Where-Object`    | Filters the output of other commands based on conditions                    |
