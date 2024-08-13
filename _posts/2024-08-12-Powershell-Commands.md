@@ -470,38 +470,6 @@ The `Where-Object` cmdlet filters objects based on specified property values.
   Get-Process | Where-Object { $_.WorkingSet -gt 100MB }
   ```
 
-## Scripting in PowerShell
-
-### Basic Scripting Challenge
-
-PowerShell scripts (.ps1 files) can be used to automate tasks. Below is an example script scenario:
-
-**Scenario**: Check if specific ports are listening on the local machine.
-
-```powershell
-$system_ports = Get-NetTCPConnection -State Listen
-$ports_to_check = Get-Content -Path "C:\ports.txt"
-
-foreach ($port in $ports_to_check) {
-    if ($port -in $system_ports.LocalPort) {
-        Write-Output "$port is listening"
-    }
-}
-```
-
-### Intermediate Scripting
-
-**Task**: Create a simple TCP port scanner for localhost.
-
-```powershell
-for ($i=130; $i -le 140; $i++) {
-    $result = Test-NetConnection -ComputerName localhost -Port $i
-    if ($result.TcpTestSucceeded) {
-        Write-Output "Port $i is open"
-    }
-}
-```
-
 ## Glossary
 
 Below is a comprehensive list of PowerShell commands and their descriptions, organized alphabetically.
@@ -529,5 +497,3 @@ Below is a comprehensive list of PowerShell commands and their descriptions, org
 | `Test-Connection`                | Tests the network connection to a remote server                          |
 | `Update-Help`                    | Updates the help files for cmdlets                                       |
 | `Where-Object`                   | Filters the output of other commands based on conditions                 |
-
-This guide serves as a comprehensive introduction to using PowerShell commands effectively, providing a solid foundation for automating and managing tasks within a Windows environment.
