@@ -1,7 +1,7 @@
 ---
 
 layout: post  
-title: "Introduction to PowerShell Commands"  
+title: "The Power of PowerShell"  
 date: 2024-08-12
 
 ---
