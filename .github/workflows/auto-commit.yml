@@ -1,0 +1,23 @@
+name: Auto Commit
+
+on:
+  push:
+    branches:
+      - master  
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update timestamp
+        run: |
+          date +"%Y-%m-%d %T" > timestamp.txt
+          git config --local user.email "toefoo@protonmail.com"
+          git config --local user.name "Gnarizard"
+          git add timestamp.txt
+          git commit -m "Update timestamp"
+          git push
