@@ -29,30 +29,12 @@ Your feedback is valuable! If you have any comments or would like to discuss a p
 
 ### Active Recon
 {% assign active_recon_posts = site.posts | where: "categories", "Active-Recon" %}
-{% if active_recon_posts.size > 0 %}
-   {% for post in active_recon_posts %}
-   - [{{ post.title }}]({{ post.url | relative_url }})
-   {% endfor %}
-{% else %}
-   <p>No posts available in this category.</p>
-{% endif %}
+{% for post in active_recon_posts %}
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}
 
 ### Web Pentesting
 {% assign web_pentesting_posts = site.posts | where: "categories", "Web-Pentesting" %}
-{% if web_pentesting_posts.size > 0 %}
-   {% for post in web_pentesting_posts %}
-   - [{{ post.title }}]({{ post.url | relative_url }})
-   {% endfor %}
-{% else %}
-   <p>No posts available in this category.</p>
-{% endif %}
-
-### Other Categories
-{% assign other_posts = site.posts | where_exp: "post", "post.categories != 'Active-Recon' and post.categories != 'Web-Pentesting'" %}
-{% if other_posts.size > 0 %}
-   {% for post in other_posts %}
-   - [{{ post.title }}]({{ post.url | relative_url }})
-   {% endfor %}
-{% else %}
-   <p>No posts available in this category.</p>
-{% endif %}
+{% for post in web_pentesting_posts %}
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}

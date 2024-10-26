@@ -34,7 +34,3 @@ collections:
   posts:
     output: true
     permalink: /:categories/:title/
-
-# Plugins
-gems:
-  - jekyll-paginate
