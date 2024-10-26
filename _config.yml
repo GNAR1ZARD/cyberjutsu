@@ -20,9 +20,9 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
 
-header_pages:
-  - active-recon.md
-  - web-pentesting.md
+# header_pages:
+#   - active-recon.md
+#   - web-pentesting.md
 
 # Outputting
 permalink: /:categories/:title/ # Use categories in permalinks

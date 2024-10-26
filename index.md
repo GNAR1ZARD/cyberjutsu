@@ -1,4 +1,11 @@
-Welcome to Cyberjutsu – a collection of tech write-ups, guides, and reflections shared with the community. This repository hosts the markdown files that are automatically turned into blog posts via GitHub Pages.
+---
+layout: default
+title: Cyberjutsu
+---
+
+# Welcome to Cyberjutsu
+
+A collection of tech write-ups, guides, and reflections shared with the community. This repository hosts the markdown files that are automatically turned into blog posts via GitHub Pages.
 
 ## About
 
@@ -15,3 +22,14 @@ Your feedback is valuable! If you have any comments or would like to discuss a p
 ---
 
 > Thank you for visiting Cyberjutsu. Enjoy reading and learning!
+
+---
+
+# Categories
+
+## Active Recon
+{% assign active_recon_posts = site.categories.Active-Recon %}
+{% for post in active_recon_posts %}
+  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+  <p>{{ post.excerpt }}</p>
+{% endfor %}
