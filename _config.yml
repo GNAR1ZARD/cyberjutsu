@@ -20,6 +20,10 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
 
+header_pages:
+  - active-recon.md
+  - web-pentesting.md
+
 # Outputting
 permalink: /:categories/:title/ # Use categories in permalinks
 paginate: 5 # amount of posts to show
