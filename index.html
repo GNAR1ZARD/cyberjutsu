@@ -1,0 +1,37 @@
+---
+layout: default
+title: Cyberjutsu
+---
+
+<!-- Markdown content converted to HTML -->
+
+<h1>Welcome to Cyberjutsu</h1>
+
+<p>A collection of tech write-ups, guides, and reflections shared with the community. This repository hosts the markdown files that are automatically turned into blog posts via GitHub Pages.</p>
+
+<h2>About</h2>
+
+<p>This blog is dedicated to sharing knowledge on various topics such as cybersecurity, software development, and system administration. The content ranges from beginner-friendly tutorials to deep dives into complex subjects.</p>
+
+<h2>Usage</h2>
+
+<p>The blog is publicly accessible at <a href="https://gnar1zard.github.io/cyberjutsu">gnar1zard.github.io/cyberjutsu</a>. Feel free to explore the posts and share your thoughts.</p>
+
+<h2>Feedback</h2>
+
+<p>Your feedback is valuable! If you have any comments or would like to discuss a post's content, please open an issue in the repository.</p>
+
+<hr>
+
+<blockquote>Thank you for visiting Cyberjutsu. Enjoy reading and learning!</blockquote>
+
+<hr>
+
+<h2>Categories</h2>
+
+<h3>Active Recon</h3>
+{% assign active_recon_posts = site.categories.Active-Recon %}
+{% for post in active_recon_posts %}
+  <h4><a href="{{ post.url | relative_url | absolute_url }}">{{ post.title }}</a></h4>
+  <p>{{ post.excerpt }}</p>
+{% endfor %}
