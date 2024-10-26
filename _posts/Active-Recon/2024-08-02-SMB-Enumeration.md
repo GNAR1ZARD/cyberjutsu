@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SMB Enumeration with Enum4linux and Smbclient"
+title: "SMB Enumeration"
 date: 2024-08-02
 categories: Active-Recon
 ---

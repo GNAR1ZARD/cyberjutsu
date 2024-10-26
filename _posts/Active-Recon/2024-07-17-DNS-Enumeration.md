@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Introduction to DNS"
+title: "DNS Enumeration"
 date: 2024-07-17
 categories: Active-Recon
 ---

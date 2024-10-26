@@ -32,9 +32,3 @@ Your feedback is valuable! If you have any comments or would like to discuss a p
 {% for post in active_recon_posts %}
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
-
-### Web Pentesting
-{% assign web_pentesting_posts = site.posts | where: "categories", "Web-Pentesting" %}
-{% for post in web_pentesting_posts %}
-- [{{ post.title }}]({{ post.url | relative_url }})
-{% endfor %}
