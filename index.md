@@ -30,6 +30,6 @@ Your feedback is valuable! If you have any comments or would like to discuss a p
 ## Active Recon
 {% assign active_recon_posts = site.categories.Active-Recon %}
 {% for post in active_recon_posts %}
-  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+  <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
   <p>{{ post.excerpt }}</p>
 {% endfor %}
