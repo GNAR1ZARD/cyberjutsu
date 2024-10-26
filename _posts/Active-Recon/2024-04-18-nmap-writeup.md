@@ -2,6 +2,7 @@
 layout: post
 title: "Network Scanning with Nmap"
 date: 2024-04-18
+categories: Active-Recon
 ---
 
 ## Table of Contents

@@ -8,9 +8,9 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-paginate
 
-# Exclude from processing.
-# The following items will not be processed, by default
+# Exclude from processing
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -21,9 +21,15 @@ exclude:
   - vendor/ruby/
 
 # Outputting
-permalink: /:year/:month/:day/:title/
+permalink: /:categories/:title/ # Use categories in permalinks
 paginate: 5 # amount of posts to show
 paginate_path: "/page:num/"
+
+# Collections & categories
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:title/
 
 # Plugins
 gems:

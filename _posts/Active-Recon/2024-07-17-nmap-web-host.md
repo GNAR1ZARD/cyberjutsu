@@ -3,6 +3,7 @@
 layout: post
 title: "Nmap Web Host"
 date: 2024-07-17
+categories: Active-Recon
 ---
 
 # Interpreting Web Hosting: Understanding Key Ports and Their Significance
