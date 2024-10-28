@@ -28,3 +28,11 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
+
+### Web-App
+
+{% assign web_app_posts = site.posts | where: "categories", "Web-App" %}
+{% for post in web_app_posts %}
+
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}
