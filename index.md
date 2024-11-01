@@ -40,7 +40,7 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 ### Client-Side
 
 {% assign client_side_posts = site.posts | where: "categories", "Client-Side" %}
-{% for post in web_app_posts %}
+{% for post in client_side_posts %}
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
