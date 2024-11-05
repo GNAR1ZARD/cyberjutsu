@@ -68,3 +68,11 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
+
+### Exploitation
+
+{% assign exploitation_posts = site.posts | where: "categories", "Exploitation" %}
+{% for post in exploitation_posts %}
+
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}

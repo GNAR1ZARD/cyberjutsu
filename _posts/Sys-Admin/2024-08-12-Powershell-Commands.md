@@ -3,7 +3,7 @@
 layout: post  
 title: "The Power of PowerShell"  
 date: 2024-08-12
-
+categories: Sys-Admin
 ---
 
 ## Table of Contents
@@ -559,7 +559,6 @@ This will provide you with one or more practical examples of how the `Get-Proces
    ```
 
    This command downloads the most current help files from the internet and installs them on your system. After running this, the information provided by `Get-Help` will be up to date.
-
 
 ## PowerShell Package Management
 

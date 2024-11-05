@@ -2,6 +2,7 @@
 layout: post
 title: "Secure File Deletion with Eraser"
 date: 2024-05-28
+categories: Sys-Admin
 ---
 
 Secure file deletion ensures that files are not only removed from the filesystem but also made irrecoverable by any data recovery tools. Simply emptying the recycle bin frees up space, but it does not actually erase the data, leaving it vulnerable to recovery. Tools like Eraser overwrite the data multiple times to prevent any possibility of recovery.
