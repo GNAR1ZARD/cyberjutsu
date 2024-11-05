@@ -5,7 +5,7 @@ title: Cyberjutsu
 
 # Welcome to Cyberjutsu
 
-A cybersecurity blog dedicated to sharing practical knowledge across topics like network defense, penetration testing, and digital forensics.
+A cybersecurity blog dedicated to sharing practical knowledge across topics like network defense, penetration testing, and system administration.
 
 ---
 
@@ -29,14 +29,6 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
-### Web-App
-
-{% assign web_app_posts = site.posts | where: "categories", "Web-App" %}
-{% for post in web_app_posts %}
-
-- [{{ post.title }}]({{ post.url | relative_url }})
-{% endfor %}
-
 ### Client-Side
 
 {% assign client_side_posts = site.posts | where: "categories", "Client-Side" %}
@@ -53,10 +45,10 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
-### Sys-Admin
+### Exploitation
 
-{% assign sys_admin_posts = site.posts | where: "categories", "Sys-Admin" %}
-{% for post in sys_admin_posts %}
+{% assign exploitation_posts = site.posts | where: "categories", "Exploitation" %}
+{% for post in exploitation_posts %}
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
@@ -69,10 +61,18 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
-### Exploitation
+### Sys-Admin
 
-{% assign exploitation_posts = site.posts | where: "categories", "Exploitation" %}
-{% for post in exploitation_posts %}
+{% assign sys_admin_posts = site.posts | where: "categories", "Sys-Admin" %}
+{% for post in sys_admin_posts %}
+
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}
+
+### Web-App
+
+{% assign web_app_posts = site.posts | where: "categories", "Web-App" %}
+{% for post in web_app_posts %}
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
