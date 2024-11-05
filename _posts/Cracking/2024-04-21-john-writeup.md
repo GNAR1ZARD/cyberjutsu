@@ -1,7 +1,8 @@
 ---
 layout: post
-title: "Hash Cracking with John"
+title: "Cracking with John"
 date: 2024-04-21
+categories: Cracking
 ---
 
 ## Table of Contents

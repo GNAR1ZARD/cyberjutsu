@@ -44,3 +44,11 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
+
+### Cracking
+
+{% assign cracking_posts = site.posts | where: "categories", "Cracking" %}
+{% for post in cracking_posts %}
+
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}

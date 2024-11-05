@@ -2,6 +2,7 @@
 layout: post
 title: "Wifi Cracking with Aircrack"
 date: 2024-04-27
+categories: Cracking
 ---
 
 ## Introduction to WiFi Cracking with Aircrack-ng
