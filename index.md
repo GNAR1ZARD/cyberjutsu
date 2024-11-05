@@ -52,3 +52,19 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
+
+### Sys-Admin
+
+{% assign sys_admin_posts = site.posts | where: "categories", "Sys-Admin" %}
+{% for post in sys_admin_posts %}
+
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}
+
+### Network Monitoring
+
+{% assign network_monitoring_posts = site.posts | where: "categories", "Network-Monitoring" %}
+{% for post in network_monitoring_posts %}
+
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}

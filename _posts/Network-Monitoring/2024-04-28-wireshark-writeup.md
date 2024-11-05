@@ -1,7 +1,8 @@
 ---
 layout: post
-title: "Introduction to Wireshark"
+title: "Comprehensive Wireshark Guide"
 date: 2024-08-05
+categories: Network-Monitoring 
 ---
 
 ## Table of Contents
