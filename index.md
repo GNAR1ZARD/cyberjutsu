@@ -21,7 +21,7 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 ## Categories
 
-### Active Recon
+### Active Reconnaissance
 
 {% assign active_recon_posts = site.posts | where: "categories", "Active-Recon" %}
 {% for post in active_recon_posts %}
@@ -37,7 +37,7 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
-### Exploitation
+### Exploitation Techniques & Tools
 
 {% assign exploitation_posts = site.posts | where: "categories", "Exploitation" %}
 {% for post in exploitation_posts %}
@@ -53,7 +53,7 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
-### Sys-Admin
+### System Administration
 
 {% assign sys_admin_posts = site.posts | where: "categories", "Sys-Admin" %}
 {% for post in sys_admin_posts %}
@@ -61,7 +61,7 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
-### Web-App
+### Web Application Security
 
 {% assign web_app_posts = site.posts | where: "categories", "Web-App" %}
 {% for post in web_app_posts %}
