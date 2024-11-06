@@ -29,14 +29,6 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
 
-### Client-Side
-
-{% assign client_side_posts = site.posts | where: "categories", "Client-Side" %}
-{% for post in client_side_posts %}
-
-- [{{ post.title }}]({{ post.url | relative_url }})
-{% endfor %}
-
 ### Cracking
 
 {% assign cracking_posts = site.posts | where: "categories", "Cracking" %}
