@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Port Scanning with Nmap"
+title: "Nmap"
 date: 2024-04-18
 categories: Active-Recon
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Wifi Cracking with Aircrack"
+title: "Aircrack-ng"
 date: 2024-04-27
 categories: Cracking
 ---

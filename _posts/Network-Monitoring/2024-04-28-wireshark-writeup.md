@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Comprehensive Wireshark Guide"
+title: "Wireshark"
 date: 2024-08-05
 categories: Network-Monitoring 
 ---

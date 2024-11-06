@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cracking with John"
+title: "John The Ripper"
 date: 2024-04-21
 categories: Cracking
 ---
