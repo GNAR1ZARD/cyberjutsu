@@ -42,6 +42,7 @@ categories: Sys-Admin
         2. [`netstat` (Network Statistics)](#netstat-network-statistics)
         3. [`wget`](#wget)
         4. [Transferring Files with SimpleHTTPServer and `wget`](#transferring-files-with-simplehttpserver-and-wget)
+        5. [`curl`](#curl)
     8. [Permissions and Ownership](#permissions-and-ownership)
         1. [`chmod` (Change Mode)](#chmod-change-mode)
         2. [`chown` (Change Owner)](#chown-change-owner)
@@ -834,6 +835,231 @@ You can transfer files, including exploit code, from your machine to the target 
 
 By using SimpleHTTPServer and `wget`, you can easily transfer files between machines on the same network, facilitating tasks such as deploying exploit code or sharing data.
 
+#### `curl`
+
+The `curl` command is a versatile tool used for transferring data from or to a server using various protocols such as HTTP, HTTPS, FTP, and more. It is widely used for downloading files, testing APIs, and performing web requests from the command line.
+
+##### Basic Usage
+
+- **Downloading a File:**
+
+  ```bash
+  curl -O https://example.com/file.txt
+  ```
+
+  The `-O` option saves the file with its original filename.
+
+- **Downloading a File with a Custom Filename:**
+
+  ```bash
+  curl -o custom_name.txt https://example.com/file.txt
+  ```
+
+  The `-o` option allows you to specify a custom filename.
+
+##### Common Use Cases
+
+- **Fetching Web Pages:**
+
+  ```bash
+  curl https://www.example.com
+  ```
+
+  Retrieves the content of the webpage.
+
+- **Sending Data with POST Requests:**
+
+  ```bash
+  curl -X POST -d "name=John&age=30" https://example.com/api
+  ```
+
+  Sends data using a POST request to the specified URL.
+
+- **Uploading Files:**
+
+  ```bash
+  curl -T localfile.txt ftp://ftp.example.com/remote/path/
+  ```
+
+  Uploads a file to an FTP server.
+
+- **Downloading Files from GitHub Repositories:**
+
+  - **Download a Raw File:**
+
+    ```bash
+    curl -O https://raw.githubusercontent.com/username/repository/branch/filename
+    ```
+
+    Replace `username`, `repository`, `branch`, and `filename` with the appropriate values.
+
+  - **Example:**
+
+    ```bash
+    curl -O https://raw.githubusercontent.com/danielmiessler/SecLists/master/Fuzzing/special-chars.txt
+    ```
+
+- **Authenticating with a Server:**
+
+  ```bash
+  curl -u username:password https://example.com
+  ```
+
+  Uses basic HTTP authentication.
+
+- **Saving Output to a File:**
+
+  ```bash
+  curl https://example.com -o output.html
+  ```
+
+- **Including HTTP Headers in the Output:**
+
+  ```bash
+  curl -i https://example.com
+  ```
+
+- **Customizing HTTP Headers:**
+
+  ```bash
+  curl -H "User-Agent: MyUserAgent" https://example.com
+  ```
+
+- **Following Redirects:**
+
+  ```bash
+  curl -L https://example.com
+  ```
+
+  The `-L` option tells `curl` to follow any redirects.
+
+- **Verbose Output for Debugging:**
+
+  ```bash
+  curl -v https://example.com
+  ```
+
+  Provides detailed information about the request and response.
+
+##### Handling Errors and Troubleshooting
+
+- **Suppressing Progress Meter and Errors:**
+
+  ```bash
+  curl -s https://example.com
+  ```
+
+  The `-s` option runs `curl` in silent mode.
+
+- **Showing Only HTTP Response Headers:**
+
+  ```bash
+  curl -I https://example.com
+  ```
+
+  The `-I` option fetches the HTTP headers only.
+
+- **Resuming a Previous Download:**
+
+  ```bash
+  curl -C - -O https://example.com/largefile.iso
+  ```
+
+  The `-C -` option tells `curl` to continue a previous file transfer.
+
+##### Advanced Usage
+
+- **Sending JSON Data in a POST Request:**
+
+  ```bash
+  curl -X POST -H "Content-Type: application/json" -d '{"name":"John","age":30}' https://example.com/api
+  ```
+
+- **Using Cookies:**
+
+  - **Save Cookies to a File:**
+
+    ```bash
+    curl -c cookies.txt https://example.com
+    ```
+
+  - **Send Cookies from a File:**
+
+    ```bash
+    curl -b cookies.txt https://example.com
+    ```
+
+- **Limiting the Transfer Rate:**
+
+  ```bash
+  curl --limit-rate 100K https://example.com/largefile.iso -O
+  ```
+
+- **Using Proxy Servers:**
+
+  ```bash
+  curl -x http://proxyserver:port https://example.com
+  ```
+
+- **FTP Upload with Authentication:**
+
+  ```bash
+  curl -T file.txt ftp://ftp.example.com/ --user username:password
+  ```
+
+- **Downloading Multiple Files:**
+
+  ```bash
+  curl -O https://example.com/file1.txt -O https://example.com/file2.txt
+  ```
+
+- **Using Variables in URLs:**
+
+  ```bash
+  curl https://example.com/page[1-5].html -O
+  ```
+
+  Downloads `page1.html` to `page5.html`.
+
+##### Examples in Scripting
+
+- **Using `curl` in a Bash Script:**
+
+  ```bash
+  #!/bin/bash
+  response=$(curl -s https://api.example.com/data)
+  echo "API Response: $response"
+  ```
+
+- **Checking if a Website is Up:**
+
+  ```bash
+  if curl -s --head https://example.com | grep "200 OK" > /dev/null
+  then
+    echo "Website is up"
+  else
+    echo "Website is down"
+  fi
+  ```
+
+##### Tips for Effective Use
+
+- **Always Verify URLs:**
+
+  Ensure that the URL is correct and accessible.
+
+- **Use `--help` for More Options:**
+
+  ```bash
+  curl --help
+  ```
+
+- **Refer to the Manual Page for Detailed Information:**
+
+  ```bash
+  man curl
+  ```
+
 ### Permissions and Ownership
 
 Managing permissions and ownership is crucial for securing and organizing access to files and directories in a Linux environment. The `chmod` and `chown` commands are essential tools for this purpose. Here’s an explanation of these commands and the significance of different permission settings such as 777 and 775.
@@ -1504,6 +1730,16 @@ Below is a comprehensive list of Linux commands and their descriptions, organize
 | `cd ..`                          | Go up one directory level                                                |
 | `cd /`                           | Change to the root directory                                             |
 | `cp`                             | Copy Files and Directories - Copies files or directories from one location to another |
+| `curl`                           | Transfer data from or to a server using various protocols                |
+| `curl -O`                        | Save the file with its original filename                                 |
+| `curl -o`                        | Save the file with a specified filename                                  |
+| `curl -I`                        | Fetch the HTTP headers only                                              |
+| `curl -X`                        | Specify a custom request method (e.g., GET, POST)                        |
+| `curl -d`                        | Send data in a POST request                                              |
+| `curl -H`                        | Pass custom header(s) to the server                                      |
+| `curl -L`                        | Follow redirects                                                         |
+| `curl -u`                        | Use basic HTTP authentication                                            |
+| `curl -v`                        | Verbose output for debugging                                             |
 | `cut`                            | Remove Sections from Each Line of Files - Extracts specific sections from each line of a file |
 | `cut -d ':' -f 1 /etc/passwd`    | Extracts the first field from each line of the `/etc/passwd` file using the colon (`:`) as the delimiter |
 | `cut -d ':' -f 1,3 /etc/passwd`  | Extracts the first and third fields from each line of the `/etc/passwd` file |
