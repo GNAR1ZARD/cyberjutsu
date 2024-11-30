@@ -5,10 +5,6 @@ date: 2024-11-30
 categories: Recon/Passive
 ---
 
-To add hyperlinks to specific sections of the document, you can use Markdown anchor links. These links allow readers to click on an item in the Table of Contents (ToC) and jump directly to the corresponding section. Here's the updated ToC with hyperlinks:
-
----
-
 ### **Table of Contents (ToC)**
 
 1. [Basic Syntax Structure](#basic-syntax-structure)
