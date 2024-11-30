@@ -2,7 +2,7 @@
 layout: post
 title: "Nmap"
 date: 2024-04-18
-categories: Active-Recon
+categories: Recon/Active
 ---
 
 ## Table of Contents

@@ -2,7 +2,7 @@
 layout: post
 title: "SMB Enumeration"
 date: 2024-08-02
-categories: Active-Recon
+categories: Recon/Active
 ---
 
 ## Table of Contents

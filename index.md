@@ -21,10 +21,20 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 ## Categories
 
-### Active Reconnaissance
+### Reconnaissance
 
-{% assign active_recon_posts = site.posts | where: "categories", "Active-Recon" %}
+#### Active
+
+{% assign active_recon_posts = site.posts | where: "categories", "Recon/Active" %}
 {% for post in active_recon_posts %}
+
+- [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}
+
+#### Passive
+
+{% assign passive_recon_posts = site.posts | where: "categories", "Recon/Passive" %}
+{% for post in passive_recon_posts %}
 
 - [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
