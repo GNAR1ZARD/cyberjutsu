@@ -25,7 +25,7 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 #### Active
 
-{% assign active_recon_posts = site.posts | where_exp: "post", "post.categories contains 'Active'" %}
+{% assign active_recon_posts = site.posts | where: "categories", "Recon/Active" %}
 {% for post in active_recon_posts %}
 
 - [{{ post.title }}]({{ post.url | relative_url }})
@@ -33,7 +33,7 @@ A cybersecurity blog dedicated to sharing practical knowledge across topics like
 
 #### Passive
 
-{% assign passive_recon_posts = site.posts | where_exp: "post", "post.categories contains 'Passive'" %}
+{% assign passive_recon_posts = site.posts | where: "categories", "Recon/Passive" %}
 {% for post in passive_recon_posts %}
 
 - [{{ post.title }}]({{ post.url | relative_url }})

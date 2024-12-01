@@ -5,7 +5,7 @@ date: 2024-11-30
 categories: Recon/Passive
 ---
 
-### **Table of Contents (ToC)**
+## **Table of Contents (ToC)**
 
 1. [Basic Syntax Structure](#basic-syntax-structure)
 2. [Common Google Dork Operators](#common-google-dork-operators)
