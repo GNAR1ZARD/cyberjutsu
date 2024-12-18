@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SMB Enumeration"
+title: "Enum4Linux"
 date: 2024-08-02
 categories: Recon/Active
 ---
