@@ -12,8 +12,9 @@ categories: Recon/Active
     2. [DNS Records](#dns-records)  
     3. [Common DNS Server Types](#common-dns-server-types)  
 2. [Enumeration Techniques](#enumeration-techniques)  
-    1. [Querying DNS Records](#querying-dns-records)  
-    2. [Performing Zone Transfers](#performing-zone-transfers)  
+    1. [Querying DNS Records](#querying-dns-records)
+    2. [Performing Reverse Lookups](#performing-reverse-lookups)  
+    3. [Performing Zone Transfers](#performing-zone-transfers)  
 3. [Advanced Techniques](#advanced-techniques)  
     1. [Subdomain Bruteforcing](#subdomain-bruteforcing)  
     2. [Discovering Hidden Services](#discovering-hidden-services)  
@@ -97,6 +98,30 @@ dig any example.com
 example.com.     3600 IN  A     93.184.216.34
 example.com.     3600 IN  NS    ns1.example.com.
 example.com.     3600 IN  MX    10 mail.example.com.
+```
+
+---
+
+### Performing Reverse Lookups
+
+Reverse lookups resolve IP addresses back to their domain names. This is useful for finding domain names hosted on a specific IP.
+
+#### Using `nslookup`
+
+```bash
+nslookup 192.168.1.1
+```
+
+#### Using `dig`
+
+```bash
+dig -x 192.168.1.1
+```
+
+**Example Output**:
+
+```
+1.1.168.192.in-addr.arpa domain name pointer example.com.
 ```
 
 ---
@@ -222,5 +247,6 @@ example.com:
 | **SOA**             | Start of Authority record for zone metadata.                 |
 | **Wildcard Record** | DNS record that resolves all subdomains to a single address. |
 | **FQDN**            | Fully Qualified Domain Name, a complete domain name specifying its exact location in the DNS hierarchy, including all domain levels and the root domain (e.g., `www.example.com.`). |
+| **Reverse Lookup**  | Resolving an IP address back to a domain name.               |
 
 ---
