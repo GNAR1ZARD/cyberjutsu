@@ -1,138 +1,225 @@
 ---
 layout: post
-title: "DNS Enumeration"
-date: 2024-07-17
+title: "DNS"
+date: 2024-12-22
 categories: Recon/Active
 ---
 
-## Table of Contents
+### Table of Contents
 
-1. [Introduction to DNS](#introduction-to-dns)
-2. [Understanding DNS Records](#understanding-dns-records)
-3. [Common DNS Record Types](#common-dns-record-types)
-    1. [CNAME Record](#cname-record)
-    2. [TXT Record](#txt-record)
-    3. [MX Record](#mx-record)
-    4. [A Record](#a-record)
-4. [DNS Query Examples](#dns-query-examples)
-5. [DNS Tools](#dns-tools)
+1. [Introduction to DNS](#introduction-to-dns)  
+    1. [Overview](#overview)  
+    2. [DNS Records](#dns-records)  
+    3. [Common DNS Server Types](#common-dns-server-types)  
+2. [Enumeration Techniques](#enumeration-techniques)  
+    1. [Querying DNS Records](#querying-dns-records)  
+    2. [Performing Zone Transfers](#performing-zone-transfers)  
+3. [Advanced Techniques](#advanced-techniques)  
+    1. [Subdomain Bruteforcing](#subdomain-bruteforcing)  
+    2. [Discovering Hidden Services](#discovering-hidden-services)  
+4. [Exploitation Scenarios](#exploitation-scenarios)  
+    1. [Misconfigured DNS Servers](#misconfigured-dns-servers)  
+    2. [DNS Spoofing and Cache Poisoning](#dns-spoofing-and-cache-poisoning)  
+5. [Combining Tools](#combining-tools)  
+    1. [DNS Enumeration with `dig`](#dns-enumeration-with-dig)  
+    2. [Automating DNS Recon with `dnsenum`](#automating-dns-recon-with-dnsenum)  
+6. [Glossary](#glossary)
 
 ---
 
-Domain Name System (DNS) is a hierarchical and decentralized naming system for computers, services, or other resources connected to the internet or a private network. It translates human-readable domain names (like www.example.com) into IP addresses that networking equipment needs for delivering information.
+## Introduction to DNS
 
-### Understanding DNS Records
+### Overview
 
-DNS records are stored in authoritative DNS servers and contain information about domain names and their corresponding IP addresses. These records are essential for the DNS to function correctly and efficiently.
+The Domain Name System (DNS) is the backbone of the internet, translating human-readable domain names (e.g., `example.com`) into machine-readable IP addresses (e.g., `192.168.1.1`).
 
-### Common DNS Record Types
+**Core Concepts**:
 
-There are several types of DNS records, each serving a different purpose. Below are some of the most commonly used DNS record types:
+- DNS resolves domain names to IP addresses using a distributed hierarchy of name servers.
+- Communication is typically unencrypted, which makes it susceptible to attacks like eavesdropping and spoofing.
 
-#### CNAME Record
+---
 
-- **Purpose**: The Canonical Name (CNAME) record maps an alias name to the canonical name (true name).
-- **Example**:
-  ```plaintext
-  shop.example.com. IN CNAME shops.examplehost.com.
-  ```
-  This CNAME record points the subdomain `shop.example.com` to `shops.examplehost.com`.
+### DNS Records
 
-#### TXT Record
+| **Record Type** | **Description**                                                                 |
+|------------------|---------------------------------------------------------------------------------|
+| **A**           | Maps a domain to an IPv4 address.                                               |
+| **AAAA**        | Maps a domain to an IPv6 address.                                               |
+| **MX**          | Specifies mail servers for the domain.                                          |
+| **NS**          | Indicates the authoritative name servers for a domain.                         |
+| **CNAME**       | Creates an alias for a domain.                                                 |
+| **PTR**         | Used for reverse DNS lookups (IP to domain).                                    |
+| **TXT**         | Stores arbitrary text, often used for SPF, DMARC, or domain validation.         |
+| **SOA**         | Contains administrative information about a zone, including the responsible email address. |
 
-- **Purpose**: The Text (TXT) record is used to store text information for various purposes, such as email security and domain verification.
-- **Example**:
-  ```plaintext
-  example.com. IN TXT "verification=abc123def456"
-  ```
-  This TXT record contains a value used for domain verification or other text-based information.
+---
 
-#### MX Record
+### Common DNS Server Types
 
-- **Purpose**: The Mail Exchange (MX) record specifies the mail server responsible for receiving email on behalf of a domain.
-- **Example**:
-  ```plaintext
-  example.com. IN MX 10 mail.example.com.
-  ```
-  This MX record indicates that mail for `example.com` should be routed to `mail.example.com` with a priority value of 10.
+| **Type**              | **Description**                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------------|
+| **Root Servers**      | Handle top-level domains like `.com` and `.org`.                                                   |
+| **Authoritative NS**  | Provide definitive answers for specific zones.                                                     |
+| **Caching DNS**       | Temporarily store query results to improve performance.                                            |
+| **Forwarding DNS**    | Forward queries to another server.                                                                 |
+| **Resolvers**         | Translate domain names into IP addresses locally (e.g., on a router or client).                   |
 
-#### A Record
+---
 
-- **Purpose**: The Address (A) record maps a domain name to its corresponding IPv4 address.
-- **Example**:
-  ```plaintext
-  www.example.com. IN A 192.168.1.1
-  ```
-  This A record maps the domain `www.example.com` to the IP address `192.168.1.1`.
+## Enumeration Techniques
 
-## DNS Query Examples
+### Querying DNS Records
 
-Using DNS queries, you can retrieve specific DNS records for a domain. Below are examples of how to query for various DNS records using command-line tools.
+Use tools like `dig` and `host` to query specific DNS records.
 
-### Querying a CNAME Record
+**Query SOA Record**:
 
 ```bash
-nslookup -type=CNAME shop.example.com
+dig soa example.com
 ```
 
-### Querying a TXT Record
+**Query NS Record**:
 
 ```bash
-nslookup -type=TXT example.com
+dig ns example.com
 ```
 
-### Querying an MX Record
+**Query All Available Records**:
 
 ```bash
-nslookup -type=MX example.com
+dig any example.com
 ```
 
-### Querying an A Record
+**Example Output**:
 
-```bash
-nslookup -type=A www.example.com
 ```
-
-## DNS Tools
-
-There are several tools available for querying and managing DNS records. Some of the most commonly used tools include:
-
-- **nslookup**: A command-line tool for querying DNS records.
-- **dig**: Another powerful command-line tool for querying DNS records.
-- **host**: A simple utility for performing DNS lookups.
-
-### Using `nslookup`
-
-`nslookup` is a network administration command-line tool available in many operating systems for querying the Domain Name System (DNS) to obtain domain name or IP address mapping.
-
-**Example**:
-
-```bash
-nslookup example.com
-```
-
-### Using `dig`
-
-`dig` (Domain Information Groper) is a flexible command-line tool for querying DNS name servers. It performs DNS lookups and displays the answers that are returned from the queried name server(s).
-
-**Example**:
-
-```bash
-dig example.com
-```
-
-### Using `host`
-
-`host` is a simple utility for performing DNS lookups. It is normally used to convert names to IP addresses and vice versa.
-
-**Example**:
-
-```bash
-host example.com
+example.com.     3600 IN  A     93.184.216.34
+example.com.     3600 IN  NS    ns1.example.com.
+example.com.     3600 IN  MX    10 mail.example.com.
 ```
 
 ---
 
-By understanding and utilizing these DNS records and tools, you can efficiently manage and troubleshoot DNS-related issues in your network.
+### Performing Zone Transfers
+
+Zone transfers (AXFR) replicate DNS zones between servers. Misconfigured DNS servers may allow anyone to request a full zone transfer.
+
+**Command**:
+
+```bash
+dig axfr example.com @dns-server-ip
+```
+
+**Example Output**:
+
+```
+example.com.     IN  A       93.184.216.34
+mail.example.com. IN  MX      10 93.184.216.35
+```
+
+---
+
+## Advanced Techniques
+
+### Subdomain Bruteforcing
+
+Identify subdomains using a wordlist and DNS queries.
+
+**Bash Loop**:
+
+```bash
+for sub in $(cat subdomains.txt); do
+    dig +short $sub.example.com;
+done
+```
+
+**Tools**:
+
+- `dnsenum`
+- `Sublist3r`
+
+---
+
+### Discovering Hidden Services
+
+Look for services using non-standard DNS records like `TXT` or custom CNAMEs.
+
+**Query TXT Records**:
+
+```bash
+dig txt example.com
+```
+
+---
+
+## Exploitation Scenarios
+
+### Misconfigured DNS Servers
+
+Servers with improper configurations can leak sensitive information:
+
+- **Open Zone Transfers**: Allow unauthorized AXFR queries.
+- **Wildcard Records**: Misconfigured `*` records can lead to unintended access.
+
+---
+
+### DNS Spoofing and Cache Poisoning
+
+Attackers can exploit unencrypted DNS traffic to redirect users to malicious domains.
+
+**Prevention**:
+
+- Use DNSSEC to verify responses.
+- Encrypt traffic with DNS-over-HTTPS (DoH) or DNS-over-TLS (DoT).
+
+---
+
+## Combining Tools
+
+### DNS Enumeration with `dig`
+
+**Query Specific Record Types**:
+
+```bash
+dig a example.com
+```
+
+**Query Multiple Records**:
+
+```bash
+dig ns example.com +short
+dig mx example.com +short
+```
+
+---
+
+### Automating DNS Recon with `dnsenum`
+
+**Command**:
+
+```bash
+dnsenum --enum -p 0 -s 0 -o output.txt -f subdomains.txt example.com
+```
+
+**Example Output**:
+
+```
+example.com:
+- ns1.example.com
+- mail.example.com
+- api.example.com
+```
+
+---
+
+## Glossary
+
+| **Term**            | **Definition**                                                |
+|----------------------|--------------------------------------------------------------|
+| **AXFR**            | Asynchronous Full Transfer of Zone data between DNS servers. |
+| **DNSSEC**          | DNS Security Extensions for validating DNS responses.        |
+| **SOA**             | Start of Authority record for zone metadata.                 |
+| **Wildcard Record** | DNS record that resolves all subdomains to a single address. |
 
 ---
