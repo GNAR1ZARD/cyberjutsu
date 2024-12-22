@@ -221,5 +221,6 @@ example.com:
 | **DNSSEC**          | DNS Security Extensions for validating DNS responses.        |
 | **SOA**             | Start of Authority record for zone metadata.                 |
 | **Wildcard Record** | DNS record that resolves all subdomains to a single address. |
+| **FQDN**            | Fully Qualified Domain Name, a complete domain name specifying its exact location in the DNS hierarchy, including all domain levels and the root domain (e.g., `www.example.com.`). |
 
 ---
